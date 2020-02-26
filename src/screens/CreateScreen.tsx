@@ -1,8 +1,9 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
+import {NavigationStackScreenComponent} from 'react-navigation-stack';
 
 type Props = {};
-export const CreateScreen: React.FC<Props> = () => {
+export const CreateScreen: NavigationStackScreenComponent<Props> = () => {
   return (
     <View>
 
