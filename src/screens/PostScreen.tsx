@@ -1,15 +1,17 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Alert, Button, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import {NavigationStackScreenComponent} from 'react-navigation-stack';
+import {HeaderIcon} from '../components/HeaderIcon';
 import {DATA} from '../data';
 import {THEME} from '../theme';
 
 type Params = {
   postId: string;
   date: string;
+  booked: boolean;
 }
 type Props = {
-
 };
 export const PostScreen: NavigationStackScreenComponent<Params, Props> = ({navigation}) => {
   const postId = navigation.getParam('postId');
@@ -44,9 +46,16 @@ export const PostScreen: NavigationStackScreenComponent<Params, Props> = ({navig
 
 PostScreen.navigationOptions = ({navigation}) => {
   const date = navigation.getParam('date');
+  const booked = navigation.getParam('booked');
+  const iconName = booked ? 'ios-star' : 'ios-star-outline';
 
   return {
     headerTitle: `Post ${new Date(date).toLocaleDateString()}`,
+    headerRight: () => (
+      <HeaderButtons HeaderButtonComponent={HeaderIcon}>
+        <Item title={'Take photo'} iconName={iconName} onPress={() => console.log('press photo')} />
+      </HeaderButtons>
+    ),
   }
 };
 

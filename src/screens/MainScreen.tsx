@@ -10,7 +10,7 @@ type Props = {};
 export const MainScreen: NavigationStackScreenComponent<Props> = ({navigation}) => {
 
   const handleOpenPost = (post: TPost) => {
-    navigation.navigate('Post', {postId: post.id, date: post.date })
+    navigation.navigate('Post', {postId: post.id, date: post.date, booked: post.booked })
   }
 
   return (
@@ -19,7 +19,7 @@ export const MainScreen: NavigationStackScreenComponent<Props> = ({navigation}) 
         data={DATA}
         keyExtractor={post => post.id.toString()}
         renderItem={({item}) => (
-          <PostItem post={item} onOpen={handleOpenPost}/>
+          <PostItem post={item} onOpen={handleOpenPost} />
         )}
       />
     </View>
@@ -31,6 +31,11 @@ MainScreen.navigationOptions = {
   headerRight: () => (
     <HeaderButtons HeaderButtonComponent={HeaderIcon}>
       <Item title={'Take photo'} iconName={'ios-camera'} onPress={() => console.log('press photo')} />
+    </HeaderButtons>
+  ),
+  headerLeft: () => (
+    <HeaderButtons HeaderButtonComponent={HeaderIcon}>
+      <Item title={'Take photo'} iconName={'ios-menu'} onPress={() => console.log('press photo')} />
     </HeaderButtons>
   ),
 
