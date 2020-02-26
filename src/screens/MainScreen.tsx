@@ -1,13 +1,19 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 
 type Props = {};
 export const MainScreen: React.FC<Props> = () => {
   return (
-    <View>
-
+    <View style={styles.root}>
+      <Text>MainScreen</Text>
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+});
