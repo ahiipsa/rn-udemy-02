@@ -1,6 +1,8 @@
 import React from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
+import {HeaderIcon} from '../components/HeaderIcon';
 import {PostItem} from '../components/PostItem';
 import {DATA, TPost} from '../data';
 
@@ -25,7 +27,13 @@ export const MainScreen: NavigationStackScreenComponent<Props> = ({navigation}) 
 };
 
 MainScreen.navigationOptions = {
-  headerTitle: 'My blog'
+  headerTitle: 'My blog',
+  headerRight: () => (
+    <HeaderButtons HeaderButtonComponent={HeaderIcon}>
+      <Item title={'Take photo'} iconName={'ios-camera'} onPress={() => console.log('press photo')} />
+    </HeaderButtons>
+  ),
+
 };
 
 const styles = StyleSheet.create({
