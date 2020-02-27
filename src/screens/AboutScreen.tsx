@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import {NavigationStackScreenComponent} from 'react-navigation-stack';
 import {HeaderIcon} from '../components/HeaderIcon';
@@ -7,8 +7,8 @@ import {HeaderIcon} from '../components/HeaderIcon';
 type Props = {};
 export const AboutScreen: NavigationStackScreenComponent<Props> = () => {
   return (
-    <View>
-
+    <View style={styles.root}>
+      <Text>My First App for Mobile devices</Text>
     </View>
   );
 };
@@ -25,4 +25,10 @@ AboutScreen.navigationOptions = ({navigation}) => ({
   ),
 });
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  }
+});
