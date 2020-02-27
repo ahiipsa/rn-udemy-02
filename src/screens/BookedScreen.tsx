@@ -1,9 +1,9 @@
 import React from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
 import {HeaderIcon} from '../components/HeaderIcon';
-import {PostItem} from '../components/PostItem';
+import {PostList} from '../components/PostList';
 import {DATA, TPost} from '../data';
 
 type Props = {};
@@ -14,15 +14,10 @@ export const BookedScreen: NavigationStackScreenComponent<Props> = ({navigation}
   };
 
   return (
-    <View style={styles.root}>
-      <FlatList
-        data={DATA.filter((item) => item.booked)}
-        keyExtractor={post => post.id.toString()}
-        renderItem={({item}) => (
-          <PostItem post={item} onOpen={handleOpenPost} />
-        )}
-      />
-    </View>
+    <PostList
+      postList={DATA.filter((item) => item.booked)}
+      onOpen={handleOpenPost}
+    />
   );
 };
 
@@ -36,8 +31,4 @@ BookedScreen.navigationOptions = {
 
 };
 
-const styles = StyleSheet.create({
-  root: {
-    padding: 10,
-  }
-});
+const styles = StyleSheet.create({});
