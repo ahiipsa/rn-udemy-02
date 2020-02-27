@@ -5,7 +5,10 @@ import {createAppContainer} from 'react-navigation';
 import {createStackNavigator} from  'react-navigation-stack';
 import {createBottomTabNavigator} from  'react-navigation-tabs';
 import {createMaterialBottomTabNavigator} from  'react-navigation-material-bottom-tabs';
+import {createDrawerNavigator} from  'react-navigation-drawer';
+import {AboutScreen} from '../screens/AboutScreen';
 import {BookedScreen} from '../screens/BookedScreen';
+import {CreateScreen} from '../screens/CreateScreen';
 import {MainScreen} from '../screens/MainScreen';
 import {PostScreen} from '../screens/PostScreen';
 import {THEME} from '../theme';
@@ -60,4 +63,24 @@ const BottomTabNavigator = Platform.OS === 'android'
     }
   });
 
-export const AppNavigation = createAppContainer(BottomTabNavigator);
+const AboutNavigator = createStackNavigator({
+  About: AboutScreen,
+}, navigationOptions);
+
+const CreateNavigator = createStackNavigator({
+  Create: CreateScreen,
+}, navigationOptions);
+
+const MainNavigator = createDrawerNavigator({
+  PostTabs: {
+    screen: BottomTabNavigator,
+  },
+  About: {
+    screen: AboutNavigator,
+  },
+  Create: {
+    screen: CreateNavigator,
+  }
+});
+
+export const AppNavigation = createAppContainer(MainNavigator);

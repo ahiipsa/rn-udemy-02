@@ -17,19 +17,24 @@ export const MainScreen: NavigationStackScreenComponent<Props> = ({navigation}) 
   );
 };
 
-MainScreen.navigationOptions = {
+MainScreen.navigationOptions = ({navigation}) => ({
   headerTitle: 'My blog',
   headerRight: () => (
     <HeaderButtons HeaderButtonComponent={HeaderIcon}>
-      <Item title={'Take photo'} iconName={'ios-camera'} onPress={() => console.log('press photo')} />
+      <Item
+        title={'Take photo'}
+        iconName={'ios-camera'}
+        onPress={() => navigation.navigate('Create')} />
     </HeaderButtons>
   ),
   headerLeft: () => (
     <HeaderButtons HeaderButtonComponent={HeaderIcon}>
-      <Item title={'Take photo'} iconName={'ios-menu'} onPress={() => console.log('press photo')} />
+      <Item
+        title={'Menu'}
+        iconName={'ios-menu'}
+        onPress={() => navigation.toggleDrawer()} />
     </HeaderButtons>
   ),
-
-};
+});
 
 const styles = StyleSheet.create({});
