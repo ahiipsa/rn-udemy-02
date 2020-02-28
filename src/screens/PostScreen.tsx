@@ -1,21 +1,42 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Alert, Button, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import {NavigationStackScreenComponent} from 'react-navigation-stack';
+import {useDispatch, useSelector} from 'react-redux';
 import {HeaderIcon} from '../components/HeaderIcon';
 import {DATA} from '../data';
+import {usePost} from '../hooks/usePost';
+import {toggleBooked} from '../store/actions/post';
 import {THEME} from '../theme';
 
 type Params = {
   postId: string;
   date: string;
   booked: boolean;
+  toggleHandler: () => void,
 }
 type Props = {
 };
 export const PostScreen: NavigationStackScreenComponent<Params, Props> = ({navigation}) => {
   const postId = navigation.getParam('postId');
-  const post = DATA.find((item) => item.id === postId);
+  const post = usePost(postId);
+  const dispatch = useDispatch();
+
+  const toggleHandler = useCallback(() => {
+    dispatch(toggleBooked(postId));
+  }, [dispatch, postId]);
+
+  useEffect(() => {
+    navigation.setParams({
+      toggleHandler,
+    })
+  }, [toggleHandler]);
+
+  useEffect(() => {
+    navigation.setParams({
+      booked: post.booked,
+    })
+  }, [post.booked]);
 
   if (!post) {
     return <View>Post not found {postId}</View>;
@@ -47,13 +68,14 @@ export const PostScreen: NavigationStackScreenComponent<Params, Props> = ({navig
 PostScreen.navigationOptions = ({navigation}) => {
   const date = navigation.getParam('date');
   const booked = navigation.getParam('booked');
+  const toggleHandler = navigation.getParam('toggleHandler');
   const iconName = booked ? 'ios-star' : 'ios-star-outline';
 
   return {
     headerTitle: `Post ${new Date(date).toLocaleDateString()}`,
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={HeaderIcon}>
-        <Item title={'Take photo'} iconName={iconName} onPress={() => console.log('press photo')} />
+        <Item title={'Take photo'} iconName={iconName} onPress={toggleHandler} />
       </HeaderButtons>
     ),
   }

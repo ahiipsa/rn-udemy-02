@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {HeaderIcon} from '../components/HeaderIcon';
 import {PostList} from '../components/PostList';
 import {DATA, TPost} from '../data';
+import {usePostList} from '../hooks/usePost';
 import {loadPostList} from '../store/actions/post';
 
 type Props = {};
@@ -15,7 +16,7 @@ export const MainScreen: NavigationStackScreenComponent<Props> = ({navigation}) 
   };
 
   const dispatch = useDispatch();
-  const postList = useSelector(state => state.post.postList);
+  const postList = usePostList();
 
   useEffect(() => {
     dispatch(loadPostList());

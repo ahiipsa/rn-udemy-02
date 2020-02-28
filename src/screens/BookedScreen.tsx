@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {HeaderIcon} from '../components/HeaderIcon';
 import {PostList} from '../components/PostList';
 import {DATA, TPost} from '../data';
+import {useBookedPostList} from '../hooks/usePost';
 
 type Props = {};
 export const BookedScreen: NavigationStackScreenComponent<Props> = ({navigation}) => {
@@ -14,7 +15,7 @@ export const BookedScreen: NavigationStackScreenComponent<Props> = ({navigation}
     navigation.navigate('Post', {postId: post.id, date: post.date, booked: post.booked })
   };
 
-  const postList = useSelector(state => state.post.bookedPostList);
+  const postList = useBookedPostList();
 
   return (
     <PostList
