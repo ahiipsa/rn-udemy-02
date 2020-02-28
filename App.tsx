@@ -10,15 +10,17 @@ export default function App() {
 
   if (!isReady) {
     return (
-      <Provider store={store} >
-        <AppLoading
-          startAsync={bootstrap}
-          onFinish={() => setReady(true)}
-          onError={(error) => console.log('error', error)}
-        />
-      </Provider>
+      <AppLoading
+        startAsync={bootstrap}
+        onFinish={() => setReady(true)}
+        onError={(error) => console.log('error', error)}
+      />
     );
   }
 
-  return (<AppNavigation />);
+  return (
+    <Provider store={store}>
+      <AppNavigation />
+    </Provider>
+  );
 }

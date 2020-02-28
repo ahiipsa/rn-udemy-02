@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
+import {useDispatch, useSelector} from 'react-redux';
 import {HeaderIcon} from '../components/HeaderIcon';
 import {PostList} from '../components/PostList';
 import {DATA, TPost} from '../data';
@@ -13,9 +14,11 @@ export const BookedScreen: NavigationStackScreenComponent<Props> = ({navigation}
     navigation.navigate('Post', {postId: post.id, date: post.date, booked: post.booked })
   };
 
+  const postList = useSelector(state => state.post.bookedPostList);
+
   return (
     <PostList
-      postList={DATA.filter((item) => item.booked)}
+      postList={postList}
       onOpen={handleOpenPost}
     />
   );

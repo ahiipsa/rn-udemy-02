@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import {NavigationStackScreenComponent} from 'react-navigation-stack';
+import {useDispatch, useSelector} from 'react-redux';
 import {HeaderIcon} from '../components/HeaderIcon';
 import {PostList} from '../components/PostList';
 import {DATA, TPost} from '../data';
+import {loadPostList} from '../store/actions/post';
 
 type Props = {};
 export const MainScreen: NavigationStackScreenComponent<Props> = ({navigation}) => {
@@ -12,8 +14,15 @@ export const MainScreen: NavigationStackScreenComponent<Props> = ({navigation}) 
     navigation.navigate('Post', {postId: post.id, date: post.date, booked: post.booked});
   };
 
+  const dispatch = useDispatch();
+  const postList = useSelector(state => state.post.postList);
+
+  useEffect(() => {
+    dispatch(loadPostList());
+  }, []);
+
   return (
-    <PostList postList={DATA} onOpen={handleOpenPost}/>
+    <PostList postList={postList} onOpen={handleOpenPost}/>
   );
 };
 
