@@ -50,6 +50,9 @@ export const PostScreen: NavigationStackScreenComponent<Params, Props> = ({navig
     return <View><Text>Post not found {postId}</Text></View>;
   }
 
+  console.log('### post', post);
+
+
   const handleRemove = () => {
     Alert.alert(
       'Delete a post',
@@ -69,7 +72,7 @@ export const PostScreen: NavigationStackScreenComponent<Params, Props> = ({navig
     <ScrollView>
       <Image style={styles.image} source={{uri: post.img}} />
       <View style={styles.titleWrap}>
-        <Text style={styles.title}>{post.text.repeat(100)}</Text>
+        <Text style={styles.title}>{post.text}</Text>
       </View>
       <Button title="Delete" color={THEME.COLORS_DANGER} onPress={handleRemove} />
     </ScrollView>

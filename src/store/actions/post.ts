@@ -1,5 +1,5 @@
 import {DATA} from '../../data';
-import {POST_LOAD_LIST, POST_REMOVE, POST_TOGGLE_BOOKED} from '../types';
+import {POST_CREATE, POST_LOAD_LIST, POST_REMOVE, POST_TOGGLE_BOOKED} from '../types';
 
 export const loadPostList = () => {
   return {
@@ -21,3 +21,16 @@ export const removePost = (postId)  => {
     payload: postId,
   }
 };
+
+export const createPost = ({text, img}) => {
+  return {
+    type: POST_CREATE,
+    payload: {
+      id: Date.now().toString(),
+      text,
+      img,
+      date: new Date().toJSON(),
+      booked: false,
+    }
+  }
+}

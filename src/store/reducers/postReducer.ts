@@ -1,4 +1,4 @@
-import {POST_LOAD_LIST, POST_REMOVE, POST_TOGGLE_BOOKED} from '../types';
+import {POST_CREATE, POST_LOAD_LIST, POST_REMOVE, POST_TOGGLE_BOOKED} from '../types';
 
 const initialState = {
   postList: [],
@@ -31,6 +31,14 @@ export const postReducer = (state = initialState, action) => {
     }
     case POST_REMOVE: {
       const postList = state.postList.filter((post) => post.id !== action.payload);
+
+      return {
+        ...state,
+        postList,
+      }
+    }
+    case POST_CREATE: {
+      const postList = [action.payload, ...state.postList];
 
       return {
         ...state,

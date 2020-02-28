@@ -1,3 +1,4 @@
 export const POST_LOAD_LIST = 'POST_LOAD_LIST';
 export const POST_TOGGLE_BOOKED = 'POST_TOGGLE_BOOKED';
 export const POST_REMOVE = 'POST_REMOVE';
+export const POST_CREATE = 'POST_CREATE';
