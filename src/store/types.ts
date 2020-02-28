@@ -1,2 +1,3 @@
-export const LOAD_POSTS = 'LOAD_POSTS';
-export const TOGGLE_BOOKED = 'TOGGLE_BOOKED';
+export const POST_LOAD_LIST = 'POST_LOAD_LIST';
+export const POST_TOGGLE_BOOKED = 'POST_TOGGLE_BOOKED';
+export const POST_REMOVE = 'POST_REMOVE';

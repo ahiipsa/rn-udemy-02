@@ -2,11 +2,11 @@ import React, {useCallback, useEffect} from 'react';
 import {Alert, Button, Image, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import {NavigationStackScreenComponent} from 'react-navigation-stack';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {HeaderIcon} from '../components/HeaderIcon';
-import {DATA} from '../data';
 import {usePost} from '../hooks/usePost';
-import {toggleBooked} from '../store/actions/post';
+import {removePost, toggleBooked} from '../store/actions/post';
+import {POST_REMOVE} from '../store/types';
 import {THEME} from '../theme';
 
 type Params = {
@@ -14,9 +14,10 @@ type Params = {
   date: string;
   booked: boolean;
   toggleHandler: () => void,
-}
-type Props = {
 };
+
+type Props = {};
+
 export const PostScreen: NavigationStackScreenComponent<Params, Props> = ({navigation}) => {
   const postId = navigation.getParam('postId');
   const post = usePost(postId);
@@ -33,13 +34,20 @@ export const PostScreen: NavigationStackScreenComponent<Params, Props> = ({navig
   }, [toggleHandler]);
 
   useEffect(() => {
+    if (!post) {
+      return;
+    }
     navigation.setParams({
       booked: post.booked,
     })
-  }, [post.booked]);
+  }, [post]);
+
+  const handleRemovePost = useCallback(() => {
+    dispatch(removePost(postId));
+  }, [dispatch, postId]);
 
   if (!post) {
-    return <View>Post not found {postId}</View>;
+    return <View><Text>Post not found {postId}</Text></View>;
   }
 
   const handleRemove = () => {
@@ -48,7 +56,10 @@ export const PostScreen: NavigationStackScreenComponent<Params, Props> = ({navig
       'Are you sure?',
       [
         {text: 'Cancel', style: 'cancel'},
-        {text: 'Delete', style: 'destructive', onPress: () => console.log('OK Pressed')},
+        {text: 'Delete', style: 'destructive', onPress: () => {
+            handleRemovePost();
+            navigation.navigate('Main');
+          }},
       ],
       {cancelable: false},
     );

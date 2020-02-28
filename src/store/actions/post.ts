@@ -1,16 +1,23 @@
 import {DATA} from '../../data';
-import {LOAD_POSTS, TOGGLE_BOOKED} from '../types';
+import {POST_LOAD_LIST, POST_REMOVE, POST_TOGGLE_BOOKED} from '../types';
 
 export const loadPostList = () => {
   return {
-    type: LOAD_POSTS,
+    type: POST_LOAD_LIST,
     payload: DATA,
   }
 };
 
-export const toggleBooked = (id) => {
+export const toggleBooked = (postId) => {
   return {
-    type: TOGGLE_BOOKED,
-    payload: id,
+    type: POST_TOGGLE_BOOKED,
+    payload: postId,
+  }
+};
+
+export const removePost = (postId)  => {
+  return {
+    type: POST_REMOVE,
+    payload: postId,
   }
 };

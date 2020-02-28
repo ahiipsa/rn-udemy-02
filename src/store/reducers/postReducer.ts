@@ -1,4 +1,4 @@
-import {LOAD_POSTS, TOGGLE_BOOKED} from '../types';
+import {POST_LOAD_LIST, POST_REMOVE, POST_TOGGLE_BOOKED} from '../types';
 
 const initialState = {
   postList: [],
@@ -7,13 +7,13 @@ const initialState = {
 export const postReducer = (state = initialState, action) => {
 
   switch (action.type) {
-    case LOAD_POSTS: {
+    case POST_LOAD_LIST: {
       return {
         ...state,
         postList: action.payload,
       }
     }
-    case TOGGLE_BOOKED: {
+    case POST_TOGGLE_BOOKED: {
       const postList = state.postList.map((post) => {
         if (post.id !== action.payload) {
           return post;
@@ -23,6 +23,14 @@ export const postReducer = (state = initialState, action) => {
           booked: !post.booked,
         }
       });
+
+      return {
+        ...state,
+        postList,
+      }
+    }
+    case POST_REMOVE: {
+      const postList = state.postList.filter((post) => post.id !== action.payload);
 
       return {
         ...state,
