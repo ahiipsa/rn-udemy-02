@@ -4,6 +4,7 @@ import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import {NavigationStackScreenComponent} from 'react-navigation-stack';
 import {HeaderIcon} from '../components/HeaderIcon';
 
+
 type Props = {};
 export const AboutScreen: NavigationStackScreenComponent<Props> = () => {
   return (
