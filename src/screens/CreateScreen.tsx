@@ -1,10 +1,9 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useRef, useState} from 'react';
 import {
   StyleSheet,
   View,
   Text,
   TextInput,
-  Image,
   Button,
   ScrollView,
   TouchableWithoutFeedback,
@@ -14,28 +13,36 @@ import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import {NavigationStackScreenComponent} from 'react-navigation-stack';
 import {useDispatch} from 'react-redux';
 import {HeaderIcon} from '../components/HeaderIcon';
+import {PhotoPicker} from '../components/PhotoPicker';
 import {createPost} from '../store/actions/post';
 
 type Props = {};
-export const CreateScreen: NavigationStackScreenComponent<Props> = ({navigation}) => {
+export const CreateScreen: NavigationStackScreenComponent<Props> = ({
+  navigation,
+}) => {
   const [text, setText] = useState('');
-  const img = 'https://cdn.londonandpartners.com/visit/general-london/areas/river/76709-640x360-houses-of-parliament-and-london-eye-on-thames-from-above-640.jpg';
+  const [image, setImage] = useState(null);
+
   const dispatch = useDispatch();
+
   const handleCreatePost = useCallback(() => {
-      dispatch(createPost({text, img}));
-      navigation.navigate('Main');
+    dispatch(createPost({text, img: image}));
+    navigation.navigate('Main');
   }, [text]);
 
-  const handleClickOutside = useCallback(() => {
-      Keyboard.dismiss();
+  const handleImage = useCallback((uri: string) => {
+    setImage(uri);
   }, []);
+
+  const handleClickOutside = useCallback(() => {
+    Keyboard.dismiss();
+  }, []);
+
   return (
     <ScrollView>
       <TouchableWithoutFeedback onPress={handleClickOutside}>
         <View style={styles.wrapper}>
-          <Text style={styles.title}>
-            Create Post
-          </Text>
+          <Text style={styles.title}>Create Post</Text>
           <TextInput
             style={styles.textArea}
             value={text}
@@ -43,8 +50,12 @@ export const CreateScreen: NavigationStackScreenComponent<Props> = ({navigation}
             placeholder="Enter text here..."
             onChangeText={setText}
           />
-          <Image style={styles.image} source={{uri: img}} />
-          <Button title="create post" onPress={handleCreatePost} />
+          <PhotoPicker onPick={handleImage} />
+          <Button
+            title="create post"
+            onPress={handleCreatePost}
+            disabled={!text || !image}
+          />
         </View>
       </TouchableWithoutFeedback>
     </ScrollView>
@@ -58,7 +69,8 @@ CreateScreen.navigationOptions = ({navigation}) => ({
       <Item
         title={'Take photo'}
         iconName={'ios-menu'}
-        onPress={() => navigation.toggleDrawer()} />
+        onPress={() => navigation.toggleDrawer()}
+      />
     </HeaderButtons>
   ),
 });
@@ -81,5 +93,5 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 300,
     marginBottom: 10,
-  }
+  },
 });
