@@ -24,7 +24,7 @@ export const PostScreen: NavigationStackScreenComponent<Params, Props> = ({navig
   const dispatch = useDispatch();
 
   const toggleHandler = useCallback(() => {
-    dispatch(toggleBooked(postId));
+    dispatch(toggleBooked(post));
   }, [dispatch, postId]);
 
   useEffect(() => {

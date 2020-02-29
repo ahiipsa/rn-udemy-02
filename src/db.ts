@@ -73,4 +73,48 @@ export class DB {
       });
     });
   }
+
+  static updatePost(post: TPost) {
+    return new Promise((resolve, reject) => {
+      db.transaction(tx => {
+        tx.executeSql(
+          `UPDATE post SET booked = ? WHERE id = ?`,
+          [post.booked ? 1 : 0, post.id],
+          (_, result) => {
+            console.log('### post updated', result);
+
+            resolve(result.insertId);
+          },
+          (_, error) => {
+            console.log('### post updating error', error, _);
+
+            reject(error);
+            return false;
+          }
+        );
+      });
+    });
+  }
+
+  static deletePost(post: TPost) {
+    return new Promise((resolve, reject) => {
+      db.transaction(tx => {
+        tx.executeSql(
+          `DELETE FROM post WHERE id = ?`,
+          [post.id],
+          (_, result) => {
+            console.log('### post deleted', result);
+
+            resolve(result.insertId);
+          },
+          (_, error) => {
+            console.log('### post deleting error', error, _);
+
+            reject(error);
+            return false;
+          }
+        );
+      });
+    });
+  }
 }
