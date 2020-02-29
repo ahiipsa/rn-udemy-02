@@ -2,6 +2,7 @@ import {POST_CREATE, POST_LOAD_LIST, POST_REMOVE, POST_TOGGLE_BOOKED} from '../t
 
 const initialState = {
   postList: [],
+  loading: true,
 };
 
 export const postReducer = (state = initialState, action) => {
@@ -11,6 +12,7 @@ export const postReducer = (state = initialState, action) => {
       return {
         ...state,
         postList: action.payload,
+        loading: false,
       }
     }
     case POST_TOGGLE_BOOKED: {

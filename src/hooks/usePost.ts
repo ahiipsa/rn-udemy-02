@@ -11,3 +11,7 @@ export const usePostList = () => {
 export const usePost = (postId: string) => {
   return usePostList().find(post => post.id === postId);
 };
+
+export const useIsLoading = () => {
+  return useSelector(state => state.post.loading);
+};
