@@ -2,17 +2,23 @@ import React, {useEffect} from 'react';
 import {StyleSheet} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import {NavigationStackScreenComponent} from 'react-navigation-stack';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {HeaderIcon} from '../components/HeaderIcon';
 import {PostList} from '../components/PostList';
-import {DATA, TPost} from '../data';
+import {TPost} from '../types';
 import {usePostList} from '../hooks/usePost';
 import {loadPostList} from '../store/actions/post';
 
 type Props = {};
-export const MainScreen: NavigationStackScreenComponent<Props> = ({navigation}) => {
+export const MainScreen: NavigationStackScreenComponent<Props> = ({
+  navigation,
+}) => {
   const handleOpenPost = (post: TPost) => {
-    navigation.navigate('Post', {postId: post.id, date: post.date, booked: post.booked});
+    navigation.navigate('Post', {
+      postId: post.id,
+      date: post.date,
+      booked: post.booked,
+    });
   };
 
   const dispatch = useDispatch();
@@ -22,9 +28,7 @@ export const MainScreen: NavigationStackScreenComponent<Props> = ({navigation}) 
     dispatch(loadPostList());
   }, []);
 
-  return (
-    <PostList postList={postList} onOpen={handleOpenPost}/>
-  );
+  return <PostList postList={postList} onOpen={handleOpenPost} />;
 };
 
 MainScreen.navigationOptions = ({navigation}) => ({
@@ -34,7 +38,8 @@ MainScreen.navigationOptions = ({navigation}) => ({
       <Item
         title={'Take photo'}
         iconName={'ios-camera'}
-        onPress={() => navigation.navigate('Create')} />
+        onPress={() => navigation.navigate('Create')}
+      />
     </HeaderButtons>
   ),
   headerLeft: () => (
@@ -42,7 +47,8 @@ MainScreen.navigationOptions = ({navigation}) => ({
       <Item
         title={'Menu'}
         iconName={'ios-menu'}
-        onPress={() => navigation.toggleDrawer()} />
+        onPress={() => navigation.toggleDrawer()}
+      />
     </HeaderButtons>
   ),
 });

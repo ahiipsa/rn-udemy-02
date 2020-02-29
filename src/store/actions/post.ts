@@ -1,10 +1,9 @@
-import {DATA} from '../../data';
 import {POST_CREATE, POST_LOAD_LIST, POST_REMOVE, POST_TOGGLE_BOOKED} from '../types';
 
 export const loadPostList = () => {
   return {
     type: POST_LOAD_LIST,
-    payload: DATA,
+    payload: [],
   }
 };
 

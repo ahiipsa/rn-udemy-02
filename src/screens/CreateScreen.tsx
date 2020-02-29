@@ -21,7 +21,7 @@ export const CreateScreen: NavigationStackScreenComponent<Props> = ({
   navigation,
 }) => {
   const [text, setText] = useState('');
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState('');
 
   const dispatch = useDispatch();
 
@@ -54,7 +54,7 @@ export const CreateScreen: NavigationStackScreenComponent<Props> = ({
           <Button
             title="create post"
             onPress={handleCreatePost}
-            disabled={!text || !image}
+            disabled={!text}
           />
         </View>
       </TouchableWithoutFeedback>

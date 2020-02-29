@@ -1,6 +1,6 @@
 import React from 'react';
 import {ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {TPost} from '../data';
+import {TPost} from '../types';
 import {THEME} from '../theme';
 
 type Props = {

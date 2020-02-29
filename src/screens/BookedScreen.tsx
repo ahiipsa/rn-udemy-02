@@ -2,10 +2,9 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {HeaderButtons, Item} from 'react-navigation-header-buttons';
 import { NavigationStackScreenComponent } from 'react-navigation-stack';
-import {useDispatch, useSelector} from 'react-redux';
 import {HeaderIcon} from '../components/HeaderIcon';
 import {PostList} from '../components/PostList';
-import {DATA, TPost} from '../data';
+import {TPost} from '../types';
 import {useBookedPostList} from '../hooks/usePost';
 
 type Props = {};
